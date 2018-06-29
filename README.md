@@ -2,6 +2,8 @@
 
 🐶 simple lil flask server and js to talk to each other
 
+<img src="screenie.png" width=600>
+
 ## Usage:
 
 Run by installing python, flask,  then:
