@@ -1,19 +1,28 @@
+function debugLog(message) {
+	$("body").append(message + "<br/>");
+}
 
-function talkToServer() {
-	console.log("Starting to talk...");
+
+function talkToServer(data) {
+	debugLog("Starting to talk...");
 	$.ajax({
-		url: "127.0.0.1:5000/json/?q=hello",
+		url: "/json/?q=" + data,
+		dataType: "json",
 		success: function (response) {
-			console.log("Done! " + response);
-			$("body").append(response);
+			debugLog("Success: " + JSON.stringify(response));
 		},
-		always: function () {
-			console.log("Finished connection...");
-		});
+		error: function (response) {
+			debugLog("Error: " + response.responseText);
+		},
+		always: function (response) {
+			debugLog("Finished connection..." + response.responseText);
+		}
 	});
 }
 
-document.onkeypress = function (e) {
-	$("body").append("Talking...<br/>");
-	talkToServer();
-};
+document.addEventListener("keypress", function () {
+	debugLog("Talking...");
+	talkToServer(new Date().toLocaleString("en-US"));
+});
+
+debugLog("Alive!");
